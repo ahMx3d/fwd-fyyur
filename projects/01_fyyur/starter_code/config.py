@@ -10,4 +10,9 @@ DEBUG = True
 
 
 # TODO IMPLEMENT DATABASE URL
-SQLALCHEMY_DATABASE_URI = '<Put your local database url>'
+# SQLALCHEMY_DATABASE_URI = '<Put your local database url>'
+
+# the db connection
+SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:admin@localhost:5432/fyyur'
+# prevent the interactive mode modifications
+SQLALCHEMY_TRACK_MODIFICATIONS = False
