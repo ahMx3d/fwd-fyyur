@@ -99,7 +99,10 @@
           {% endfor %}
         {% endif %}
       {% endwith %}
-
+      <div class="alert alert-block alert-info fade in" id="js-err-msg" style="display: none;">
+        <a class="close" data-dismiss="alert">&times;</a>
+        {{ message }}
+      </div>
       {% block content %}{% endblock %}
       
     </main>
@@ -117,6 +120,8 @@
   <script>window.jQuery || document.write('<script type="text/javascript" src="/static/js/libs/jquery-1.11.1.min.js"><\/script>')</script>
   <script type="text/javascript" src="/static/js/libs/bootstrap-3.1.1.min.js" defer></script>
   <script type="text/javascript" src="/static/js/plugins.js" defer></script>
+  <!-- js script file that contains the venue delete buttons -->
+  <script src="../../static/js/main.js"></script>
 
 </body>
 </html>
