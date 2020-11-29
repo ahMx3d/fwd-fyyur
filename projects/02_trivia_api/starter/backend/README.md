@@ -68,25 +68,257 @@ One note before you delve into your tasks: for each endpoint you are expected to
 
 REVIEW_COMMENT
 ```
-This README is missing documentation of your endpoints. Below is an example for your endpoint to get all categories. Please use it as a reference for creating your documentation and resubmit your code. 
+The Endpoints Documentations:
 
 Endpoints
 GET '/categories'
-GET ...
-POST ...
-DELETE ...
+GET '/questions'
+DELETE '/questions/<question_id>'
+POST '/questions'
+GET '/categories/<category_id>/questions'
+POST '/quizzes'
 
 GET '/categories'
-- Fetches a dictionary of categories in which the keys are the ids and the value is the corresponding string of the category
+- Handles GET requests for all available categories.
 - Request Arguments: None
-- Returns: An object with a single key, categories, that contains a object of id: category_string key:value pairs. 
-{'1' : "Science",
-'2' : "Art",
-'3' : "Geography",
-'4' : "History",
-'5' : "Entertainment",
-'6' : "Sports"}
+- Returns a dictionary of each category's id and type in the format of key: value pairs.
+- Response:
+{
+    "categories": {
+        "1": "Science",
+        "2": "Art",
+        "3": "Geography",
+        "4": "History",
+        "5": "Entertainment",
+        "6": "Sports"
+    },
+    "message": "Categories retrieved successfully",
+    "status" : 200,
+    "success": true
+}
 
+GET '/questions'
+- Handles GET requests for questions including pagination (every 10 questions).
+- Request Arguments: None
+- Returns list of questions, number of total questions, current category, categories.
+- Response:
+{
+    "categories": {
+        "1": "Science",
+        "2": "Art",
+        "3": "Geography",
+        "4": "History",
+        "5": "Entertainment",
+        "6": "Sports"
+    },
+    "current_category": null,
+    "message"         : "Categories & questions retrieved successfully",
+    "questions"       : [
+        {
+            "answer"    : "this is the new test question",
+            "category"  : 2,
+            "difficulty": 4,
+            "id"        : 33,
+            "question"  : "what is the new test question?"
+        },
+        {
+            "answer"    : "this is the new question",
+            "category"  : 5,
+            "difficulty": 1,
+            "id"        : 32,
+            "question"  : "what is the new question?"
+        },
+        {
+            "answer"    : "OK here we go",
+            "category"  : 2,
+            "difficulty": 2,
+            "id"        : 31,
+            "question"  : "fdsfds"
+        },
+        {
+            "answer"    : "OK here we go",
+            "category"  : 2,
+            "difficulty": 3,
+            "id"        : 29,
+            "question"  : "what about another try?"
+        },
+        {
+            "answer"    : "u will do it",
+            "category"  : 5,
+            "difficulty": 1,
+            "id"        : 28,
+            "question"  : "what do u think?"
+        },
+        {
+            "answer"    : "Scarab",
+            "category"  : 4,
+            "difficulty": 4,
+            "id"        : 23,
+            "question"  : "Which dung beetle was worshipped by the ancient Egyptians?"
+        },
+        {
+            "answer"    : "Blood",
+            "category"  : 1,
+            "difficulty": 4,
+            "id"        : 22,
+            "question"  : "Hematology is a branch of medicine involving the study of what?"
+        },
+        {
+            "answer"    : "Alexander Fleming",
+            "category"  : 1,
+            "difficulty": 3,
+            "id"        : 21,
+            "question"  : "Who discovered penicillin?"
+        },
+        {
+            "answer"    : "The Liver",
+            "category"  : 1,
+            "difficulty": 4,
+            "id"        : 20,
+            "question"  : "What is the heaviest organ in the human body?"
+        },
+        {
+            "answer"    : "Jackson Pollock",
+            "category"  : 2,
+            "difficulty": 2,
+            "id"        : 19,
+            "question"  : "Which American artist was a pioneer of Abstract Expressionism, and a leading exponent of action painting?"
+        }
+    ],
+    "status"         : 200,
+    "success"        : true,
+    "total_questions": 23
+}
+
+DELETE '/questions/<question_id>'
+- Handles DELETE question using a question ID.
+- Request Arguments: question_id
+- Response:
+{
+    "message": "The question deleted successfully",
+    "status" : 200,
+    "success": true
+}
+
+POST '/questions'
+- Handles get questions based on a search term.
+- Returns any questions for whom the search term is a substring of the question.
+- Response:
+{
+    'success'        : true,
+    'status'         : 200,
+    'questions'      : [
+        {
+            "answer"    : "OK here we go",
+            "category"  : 2,
+            "difficulty": 2,
+            "id"        : 31,
+            "question"  : "fdsfds"
+        }
+    ],
+    "total_questions": 1,
+    'message'        : 'the questions searched found successfully'
+}
+
+- Handles POST a new question, which will require the question and answer text, category, and difficulty score.
+- Returns the newly created question id.
+- Request Arguments: None
+- Response:
+{
+    'success': true,
+    'status' : 201,
+    'created': 50,
+    'message': 'The question created successfully'
+}
+
+GET '/categories/<category_id>/questions'
+- Handles a GET request to get questions based on category, and 
+- Returns list of all paginated questions for each page.
+- Request Arguments: category_id
+- Response:
+{
+    "current_category": 5,
+    "message"         : "the questions of category \"Entertainment\" found successfully",
+    "questions"       : [
+        {
+            "answer"    : "this is the new question",
+            "category"  : 5,
+            "difficulty": 1,
+            "id"        : 32,
+            "question"  : "what is the new question?"
+        },
+        {
+            "answer"    : "Edward Scissorhands",
+            "category"  : 5,
+            "difficulty": 3,
+            "id"        : 6,
+            "question"  : "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+        },
+        {
+            "answer"    : "Tom Cruise",
+            "category"  : 5,
+            "difficulty": 4,
+            "id"        : 4,
+            "question"  : "What actor did author Anne Rice first denounce, then praise in the role of her beloved Lestat?"
+        }
+    ],
+    "status"         : 200,
+    "success"        : true,
+    "total_questions": 3
+}
+
+POST '/quizzes'
+- Handles a POST request to get questions to play the quiz. This endpoint takes category and previous question parameters.
+- Return a random questions within the given category, if provided, and that is not one of the previous questions.
+- Response:
+{
+    "success"         : true,
+    "status"          : 200,
+    "question"        : {
+        "answer"    : "Edward Scissorhands",
+        "category"  : 5,
+        "difficulty": 3,
+        "id"        : 6,
+        "question"  : "What was the title of the 1990 fantasy directed by Tim Burton about a young man with multi-bladed appendages?"
+    }
+}
+
+The server handled error types:
+
+400 - Bad Request
+{
+    'success': False,
+    'error':400,
+    'message':'Bad Request'
+}
+
+404 - Resource not Found
+{
+    'success': False,
+    'error':404,
+    'message':'Resource not Found'
+}
+
+405 - Method not Allowed
+{
+    'success': False,
+    'error':405,
+    'message':'Method not Allowed'
+}
+
+422 - Unprocessable Entity
+{
+    'success': False,
+    'error':422,
+    'message':'Unprocessable Entity'
+}
+
+500 - Internal Server Error
+{
+    'success': False,
+    'error':500,
+    'message':'Internal Server Error'
+}
 ```
 
 

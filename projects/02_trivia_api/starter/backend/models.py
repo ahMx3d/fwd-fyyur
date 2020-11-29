@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 
 database_name = "trivia"
-database_path = "postgres://{}/{}".format('localhost:5432', database_name)
+database_path = f'postgres://postgres:admin@localhost:5432/{database_name}'
 
 db = SQLAlchemy()
 
@@ -26,16 +26,16 @@ Question
 class Question(db.Model):  
   __tablename__ = 'questions'
 
-  id = Column(Integer, primary_key=True)
-  question = Column(String)
-  answer = Column(String)
-  category = Column(String)
+  id         = Column(Integer, primary_key=True)
+  question   = Column(String)
+  answer     = Column(String)
+  category   = Column(Integer)
   difficulty = Column(Integer)
 
   def __init__(self, question, answer, category, difficulty):
-    self.question = question
-    self.answer = answer
-    self.category = category
+    self.question   = question
+    self.answer     = answer
+    self.category   = category
     self.difficulty = difficulty
 
   def insert(self):
@@ -51,10 +51,10 @@ class Question(db.Model):
 
   def format(self):
     return {
-      'id': self.id,
-      'question': self.question,
-      'answer': self.answer,
-      'category': self.category,
+      'id'        : self.id,
+      'question'  : self.question,
+      'answer'    : self.answer,
+      'category'  : self.category,
       'difficulty': self.difficulty
     }
 
@@ -65,7 +65,7 @@ Category
 class Category(db.Model):  
   __tablename__ = 'categories'
 
-  id = Column(Integer, primary_key=True)
+  id   = Column(Integer, primary_key=True)
   type = Column(String)
 
   def __init__(self, type):
@@ -73,6 +73,6 @@ class Category(db.Model):
 
   def format(self):
     return {
-      'id': self.id,
+      'id'  : self.id,
       'type': self.type
     }
